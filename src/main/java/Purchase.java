@@ -3,6 +3,8 @@ public class Purchase {
 	
 	private Boolean _internetConnection;
 	private int _phoneLines;
+	private String[] _cellPhones;
+	private int _price;
 	
 	public Boolean get_internetConnection() {
 		return _internetConnection;
@@ -16,7 +18,16 @@ public class Purchase {
 	public void set_phoneLines(int _phoneLines) {
 		this._phoneLines = _phoneLines;
 	}
-	
-	
-
+	public String[] get_cellPhones() {
+		return _cellPhones;
+	}
+	public void set_cellPhones(String[] _cellPhones) {
+		this._cellPhones = _cellPhones;
+	}
+	public int get_price() {
+		return _price;
+	}
+	public void set_price(int _price) {
+		this._price = _price;
+	}
 }
