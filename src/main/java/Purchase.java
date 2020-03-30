@@ -1,7 +1,7 @@
 
 public class Purchase {
 	
-	private Boolean _internetConnection;
+	private Boolean _internetConnection;	
 	private int _phoneLines;
 	private String[] _cellPhones;
 	private int _price;
@@ -30,4 +30,13 @@ public class Purchase {
 	public void set_price(int _price) {
 		this._price = _price;
 	}
+	
+	public Purchase(Boolean _internetConnection, int _phoneLines, String[] _cellPhones, int _price) {
+		super();
+		this._internetConnection = _internetConnection;
+		this._phoneLines = _phoneLines;
+		this._cellPhones = _cellPhones;
+		this._price = _price;
+	}
+	
 }
