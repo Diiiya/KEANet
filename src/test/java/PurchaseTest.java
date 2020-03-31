@@ -75,6 +75,7 @@ public class PurchaseTest {
 				
 		//Assert
 		assertEquals(350, totalPriceAfterDeletingOnlyOneMotorola); //checking if only 1 object will be deleted from the list, not all of the kind		
+		assertEquals(1, _cellPhones.size()); //checking if it removed only 1 object
 	}
 	
 	@Test
