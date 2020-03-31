@@ -52,16 +52,29 @@ public class PurchaseTest {
 	public void testUnselectingACellPhone_returnDecrementedPrice() {
 		//Here we test if the selected cellPhone is removed from the array
 		
+		//Arrange
+		_cellPhones.add("Motorola G99"); //We have 3 object in the list, twice Motorola 
+		//(to test if client can add more than 1 of kind and then to remove just one, not all with this name)
+		
 		//Act
-		int totalPrice = object.UnselectingACellPhone("iPhone 99");
-		int notChangedTotalPrice = object.UnselectingACellPhone("");
+		int totalPrice = object.UnselectingACellPhone("iPhone 99"); //7150 - 6000 expected
 		
 		//Assert
 		assertEquals(1150, totalPrice); //checks if price has changed
 		assertFalse(_cellPhones.contains("iPhone 99")); //checks if the phone got removed from the list
+			
+		//Act	
+		int notChangedTotalPrice = object.UnselectingACellPhone("");
 		
+		//Assert
 		assertEquals(1150, notChangedTotalPrice); //checks if price did not change (with empty object)
-		assertEquals(1, _cellPhones.size()); //checks if it did not remove any objects from the list (with empty object)
+		assertEquals(2, _cellPhones.size()); //checks if it did not remove any objects from the list (with empty object)
+		
+		//Act
+		int totalPriceAfterDeletingOnlyOneMotorola = object.UnselectingACellPhone("Motorola G99"); //1150 - 800
+				
+		//Assert
+		assertEquals(350, totalPriceAfterDeletingOnlyOneMotorola); //checking if only 1 object will be deleted from the list, not all of the kind		
 	}
 	
 	@Test
