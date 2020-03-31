@@ -80,6 +80,19 @@ public class Purchase {
 		this._price = _price;
 	}
 	
+
+	public int InExcludeInternedConnection(boolean _internetConnection) {
+		return _price + 200;
+	}
+	
+	public int AddPhoneLine() {
+		return _price + 150;
+	}
+	
+	public int SelectCellPhone(String phoneModel) {
+		return _price;
+	}
+
 	
 	public int DecrementingTheNumberOfPhoneLines() {
 		if(get_phoneLines() != 0) {
@@ -132,4 +145,5 @@ public class Purchase {
 			return myAlert;
 		}
 	}
+
 }
