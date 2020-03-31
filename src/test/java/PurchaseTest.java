@@ -1,35 +1,45 @@
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class PurchaseTest {
-
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
 	
-	//Test cases pass: 1,4,7,8     => Total price should be decreased by 150
-	//test cases fail: -10,-1,0,9,15  => Total price not changed
-	@Test
-	public void testDecrementingTheNumberOfPhoneLines_returnsDecrementedPrice() {
-		//Arrange
-		List<String> _cellPhones;
+	Purchase object;
+	List<String> _cellPhones;
+	
+	@Before
+	public void BeforeTest() {
+		//Runs before every test
+		_cellPhones = new ArrayList();
 		_cellPhones.add("iPhone 99");
 		_cellPhones.add("Motorola G99");
+				
+		object = new Purchase(true, 1, _cellPhones, 7150);
+	}
+	
+	@Test
+	public void testDecrementingTheNumberOfPhoneLines_returnsDecrementedPrice() {
+		//Here we test if the total price decreases when user decreases the phone lines
 		
-		Purchase object = new Purchase(true, 1, _cellPhones, 7150); //fake object
+		//Test cases pass: 1,4,7,8     => Total price should be decreased by 150
+		//test cases fail: -10,-1,0,9,15  => Total price not changed
+				
+		//Arrange
 		int[] testPhoneLines= {-10,-1,0,1,4,7,8,9,15}; //test cases
 		
 		for(int item : testPhoneLines) {
-			object.set_phoneLines(item);
-			//to change
+			//Act
+			object.set_phoneLines(item);			
 			int totalPrice = object.DecrementingTheNumberOfPhoneLines();
 			
+			//Assert
 			if(item > 0 && item < 9) {
 				assertEquals(7000, totalPrice);
+				object.set_price(7150);
 			}
 			else {
 				assertEquals(7150, totalPrice);
@@ -38,10 +48,30 @@ public class PurchaseTest {
 	}
 	
 	@Test
-	public void testUnselectingACellPhone_returnDecreasedPrice() {
-		//Arrange
+	public void testUnselectingACellPhone_returnDecrementedPrice() {
+		//Here we test if the selected cellPhone is removed from the array
+		
 		//Act
+		int totalPrice = object.UnselectingACellPhone("iPhone 99");
+		
 		//Assert
+		assertEquals(1150, totalPrice); //checks if price has changed
+		assertFalse(_cellPhones.contains("iPhone 99")); //checks if the phone got removed from the list
 	}
-
+	
+	@Test
+	public void testBuying_returnStringAlert() {
+		//Act
+		String myReceipt = object.Buying();
+		
+		//Arrange
+		_cellPhones.clear();
+		Purchase emptyObject = new Purchase(false, 0, _cellPhones, 0);
+		//Act
+		String myAlert = emptyObject.Buying();
+		
+		//Assert
+		assertEquals("Nothing Selected", myAlert);  //checks what happens when nothing is selected
+		assertNotEquals("Nothing Selected", myReceipt); //checks what happens when something is selected
+	}
 }

@@ -7,7 +7,7 @@ public class Purchase {
 	private int _phoneLines;
 	private List<String> _cellPhones;
 	private int _price;	
-	private List<Phone> _phoneCatalog;
+	private List<Phone> _phoneCatalog = new ArrayList();
 	
 	public Boolean get_internetConnection() {
 		return _internetConnection;
@@ -33,7 +33,7 @@ public class Purchase {
 	public void set_price(int _price) {
 		this._price = _price;
 	}	
-	private void set_phoneCatalog(List<Phone> _phoneCatalog) {		
+	public void set_phoneCatalog() {
 		Phone p1;
 		Phone p2;
 		Phone p3;
@@ -51,10 +51,8 @@ public class Purchase {
 		_phoneCatalog.add(p3);
 		_phoneCatalog.add(p4);
 		_phoneCatalog.add(p5);
-		
-		this._phoneCatalog = _phoneCatalog;
 	}	
-	private List<Phone> get_phoneCatalog(){
+	public List<Phone> get_phoneCatalog(){
 		return _phoneCatalog;
 	}
 	
@@ -65,6 +63,7 @@ public class Purchase {
 		this._phoneLines = _phoneLines;
 		this._cellPhones = _cellPhones;
 		this._price = _price;
+		set_phoneCatalog();
 	}
 	
 
@@ -81,26 +80,24 @@ public class Purchase {
 	}
 
 	
-	public int DecrementingTheNumberOfPhoneLines(int _numberOfPhoneLines) {
-		//change the method,now it fails
-		if(get_phoneLines() != 0) {
-			set_phoneLines(_phoneLines - 1);
-			set_price(_price - 150);
+	public int DecrementingTheNumberOfPhoneLines() {
+		if(get_phoneLines() > 0 && get_phoneLines() < 9) {
+			set_phoneLines(get_phoneLines() - 1);
+			set_price(get_price() - 150);
 		}
 		return get_price();
 			
 	}
 	
 	public int UnselectingACellPhone(String _modelName) {
+		//to further development: what if there are few phones with the same name
 		if(get_cellPhones().size() != 0) {
 			for (int i=0; i<get_cellPhones().size(); i++) 
 			{ 
 			    if(get_cellPhones().get(i) == _modelName) {
-			    	get_cellPhones().remove(i); //remove from array
+			    	get_cellPhones().remove(i);
 			    	for(Phone item : get_phoneCatalog()) {
-			    		//get Price from the catalog
 			    		if(item.get_name() == _modelName) {
-					    	//decrease price
 			    			set_price(get_price()- item.get_price());
 			    		}
 			    	}
@@ -111,7 +108,7 @@ public class Purchase {
 	}
 	
 	public String Buying() {
-		if((get_internetConnection() == false || get_internetConnection() == null) && get_phoneLines() == 0 &&  get_cellPhones().size() == 0 && get_price() == 0) {
+		if(get_internetConnection() == false && get_phoneLines() == 0 &&  get_cellPhones().size() < 1 && get_price() == 0) {
 			return "Nothing Selected";
 		}
 		else {
@@ -121,7 +118,7 @@ public class Purchase {
 				myAlert += "Internet Connection, ";
 			}
 			if(get_phoneLines() > 0) {
-				myAlert += get_phoneLines() + "7 Phone Lines,";
+				myAlert += get_phoneLines() + " Phone Lines,";
 			}
 			if(get_cellPhones().size() > 0) {
 				myAlert += "Phones that you chose: ";
