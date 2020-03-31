@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Purchase {
 	
@@ -33,25 +34,17 @@ public class Purchase {
 	public void set_price(int _price) {
 		this._price = _price;
 	}	
-	public void set_phoneCatalog() {
-		Phone p1;
-		Phone p2;
-		Phone p3;
-		Phone p4;
-		Phone p5;
-		
-		p1 = new Phone("Motorola G99", 800);
-		p2 = new Phone("iPhone 99", 6000);
-		p3 = new Phone("Samsung Galaxy 99", 1000);
-		p4 = new Phone("Sony Xperia 99", 900);
-		p5 = new Phone("Huawei 99", 900);
+	public void set_phoneCatalog() {		
 
-		_phoneCatalog.add(p1);
-		_phoneCatalog.add(p2);
-		_phoneCatalog.add(p3);
-		_phoneCatalog.add(p4);
-		_phoneCatalog.add(p5);
-	}	
+		Phone p1 = new Phone("Motorola G99", 800);
+		Phone p2 = new Phone("iPhone 99", 6000);
+		Phone p3 = new Phone("Samsung Galaxy 99", 1000);
+		Phone p4 = new Phone("Sony Xperia 99", 900);
+		Phone p5 = new Phone("Huawei 99", 900);
+
+		_phoneCatalog.addAll(Arrays.asList(p1, p2, p3, p4, p5));
+
+	}		
 	public List<Phone> get_phoneCatalog(){
 		return _phoneCatalog;
 	}
@@ -68,17 +61,24 @@ public class Purchase {
 	
 
 	public int InExcludeInternedConnection(boolean _internetConnection) {
-		return _price + 200;
-	}
-	
-	public int AddPhoneLine() {
-		return _price + 150;
-	}
-	
-	public int SelectCellPhone(String phoneModel) {
+		if (_internetConnection == true) {
+			_price = _price + 200;
+			return _price;
+		}
+		_price = _price - 200;
 		return _price;
 	}
 
+	
+
+	public int AddPhoneLine() {
+		if (_phoneLines <= 7) { 
+			_phoneLines = _phoneLines + 1;
+			_price = _price + 150;
+			return _price;
+		}
+		throw new IndexOutOfBoundsException("The number of phone lines cannot be greater than 8");
+	}
 	
 	public int DecrementingTheNumberOfPhoneLines() {
 		if(get_phoneLines() > 0 && get_phoneLines() < 9) {
@@ -87,6 +87,19 @@ public class Purchase {
 		}
 		return get_price();
 			
+	}
+	
+	public int SelectCellPhone(String modelName) {
+		if (_cellPhones.size() <= 7) { 
+	    	for(Phone phone : get_phoneCatalog()) {
+	    		if(phone.get_name() == modelName) {
+	    			_cellPhones.add(phone.get_name());
+	    			_price = _price + phone.get_price();	
+	    			return _price;
+	    		}
+			}
+		}
+		throw new IndexOutOfBoundsException("The number of phone lines cannot be greater than 8");
 	}
 	
 	public int UnselectingACellPhone(String _modelName) {
