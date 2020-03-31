@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 
 public class PurchaseTest {
@@ -14,15 +16,16 @@ public class PurchaseTest {
 	@Test
 	public void testDecrementingTheNumberOfPhoneLines_returnsDecrementedPrice() {
 		//Arrange
-		String[] _cellPhones = new String[2];
-		_cellPhones[0] = "iPhone 99";
-		_cellPhones[1] = "Motorola G99";
+		List<String> _cellPhones;
+		_cellPhones.add("iPhone 99");
+		_cellPhones.add("Motorola G99");
 		
 		Purchase object = new Purchase(true, 1, _cellPhones, 7150); //fake object
 		int[] testPhoneLines= {-10,-1,0,1,4,7,8,9,15}; //test cases
 		
 		for(int item : testPhoneLines) {
 			object.set_phoneLines(item);
+			//to change
 			int totalPrice = object.DecrementingTheNumberOfPhoneLines();
 			
 			if(item > 0 && item < 9) {
