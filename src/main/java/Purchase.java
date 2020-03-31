@@ -91,7 +91,7 @@ public class Purchase {
 	
 	public int UnselectingACellPhone(String _modelName) {
 		//to further development: what if there are few phones with the same name
-		if(get_cellPhones().size() != 0) {
+		if(get_cellPhones().size() != 0 && _modelName != "") {
 			for (int i=0; i<get_cellPhones().size(); i++) 
 			{ 
 			    if(get_cellPhones().get(i) == _modelName) {

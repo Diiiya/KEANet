@@ -14,6 +14,7 @@ public class PurchaseTest {
 	@Before
 	public void BeforeTest() {
 		//Runs before every test
+		//Arrange
 		_cellPhones = new ArrayList();
 		_cellPhones.add("iPhone 99");
 		_cellPhones.add("Motorola G99");
@@ -39,7 +40,7 @@ public class PurchaseTest {
 			//Assert
 			if(item > 0 && item < 9) {
 				assertEquals(7000, totalPrice);
-				object.set_price(7150);
+				object.set_price(7150); //we have to reset the value, because it would decrease every time
 			}
 			else {
 				assertEquals(7150, totalPrice);
@@ -53,14 +54,20 @@ public class PurchaseTest {
 		
 		//Act
 		int totalPrice = object.UnselectingACellPhone("iPhone 99");
+		int notChangedTotalPrice = object.UnselectingACellPhone("");
 		
 		//Assert
 		assertEquals(1150, totalPrice); //checks if price has changed
 		assertFalse(_cellPhones.contains("iPhone 99")); //checks if the phone got removed from the list
+		
+		assertEquals(1150, notChangedTotalPrice); //checks if price did not change (with empty object)
+		assertEquals(1, _cellPhones.size()); //checks if it did not remove any objects from the list (with empty object)
 	}
 	
 	@Test
 	public void testBuying_returnStringAlert() {
+		//Here we test we alert we get after pressing "Buy" button
+		
 		//Act
 		String myReceipt = object.Buying();
 		
