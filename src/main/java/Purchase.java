@@ -5,8 +5,9 @@ public class Purchase {
 	
 	private Boolean _internetConnection;	
 	private int _phoneLines;
-	private String[] _cellPhones;
+	private List<String> _cellPhones;
 	private int _price;	
+	private List<Phone> _phoneCatalog;
 	
 	public Boolean get_internetConnection() {
 		return _internetConnection;
@@ -20,10 +21,10 @@ public class Purchase {
 	public void set_phoneLines(int _phoneLines) {
 		this._phoneLines = _phoneLines;
 	}
-	public String[] get_cellPhones() {
+	public List<String> get_cellPhones() {
 		return _cellPhones;
 	}
-	public void set_cellPhones(String[] _cellPhones) {
+	public void set_cellPhones(List<String> _cellPhones) {
 		this._cellPhones = _cellPhones;
 	}
 	public int get_price() {
@@ -31,20 +32,7 @@ public class Purchase {
 	}
 	public void set_price(int _price) {
 		this._price = _price;
-	}
-	
-
-	//phones that client chose
-	List<String> _myPhones = new ArrayList();
-	public List<String> get_myPhones() {
-		return _myPhones;
-	}
-	public void set_myPhones(List<String> _myPhones) {
-		this._myPhones = _myPhones;
-	}
-	
-	//Catalog of the phones
-	List<Phone> _phoneCatalog = new ArrayList();
+	}	
 	private void set_phoneCatalog(List<Phone> _phoneCatalog) {		
 		Phone p1;
 		Phone p2;
@@ -65,14 +53,13 @@ public class Purchase {
 		_phoneCatalog.add(p5);
 		
 		this._phoneCatalog = _phoneCatalog;
-	}
-	
+	}	
 	private List<Phone> get_phoneCatalog(){
 		return _phoneCatalog;
 	}
 	
 	
-	public Purchase(Boolean _internetConnection, int _phoneLines, String[] _cellPhones, int _price) {
+	public Purchase(Boolean _internetConnection, int _phoneLines, List<String> _cellPhones, int _price) {
 		super();
 		this._internetConnection = _internetConnection;
 		this._phoneLines = _phoneLines;
@@ -94,7 +81,8 @@ public class Purchase {
 	}
 
 	
-	public int DecrementingTheNumberOfPhoneLines() {
+	public int DecrementingTheNumberOfPhoneLines(int _numberOfPhoneLines) {
+		//change the method,now it fails
 		if(get_phoneLines() != 0) {
 			set_phoneLines(_phoneLines - 1);
 			set_price(_price - 150);
@@ -104,11 +92,11 @@ public class Purchase {
 	}
 	
 	public int UnselectingACellPhone(String _modelName) {
-		if(get_myPhones().size() != 0) {
-			for (int i=0; i<get_myPhones().size(); i++) 
+		if(get_cellPhones().size() != 0) {
+			for (int i=0; i<get_cellPhones().size(); i++) 
 			{ 
-			    if(get_myPhones().get(i) == _modelName) {
-			    	get_myPhones().remove(i); //remove from array
+			    if(get_cellPhones().get(i) == _modelName) {
+			    	get_cellPhones().remove(i); //remove from array
 			    	for(Phone item : get_phoneCatalog()) {
 			    		//get Price from the catalog
 			    		if(item.get_name() == _modelName) {
@@ -123,7 +111,7 @@ public class Purchase {
 	}
 	
 	public String Buying() {
-		if((get_internetConnection() == false || get_internetConnection() == null) && get_phoneLines() == 0 &&  get_myPhones().size() == 0 && get_price() == 0) {
+		if((get_internetConnection() == false || get_internetConnection() == null) && get_phoneLines() == 0 &&  get_cellPhones().size() == 0 && get_price() == 0) {
 			return "Nothing Selected";
 		}
 		else {
@@ -135,9 +123,9 @@ public class Purchase {
 			if(get_phoneLines() > 0) {
 				myAlert += get_phoneLines() + "7 Phone Lines,";
 			}
-			if(get_myPhones().size() > 0) {
+			if(get_cellPhones().size() > 0) {
 				myAlert += "Phones that you chose: ";
-				for(String item : get_myPhones()) {
+				for(String item : get_cellPhones()) {
 					myAlert += item + ", ";
 				}
 			}
