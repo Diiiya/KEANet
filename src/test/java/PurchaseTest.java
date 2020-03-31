@@ -1,22 +1,20 @@
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class PurchaseTest {
 
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
-	
+		
 	//Test cases pass: 1,4,7,8     => Total price should be decreased by 150
 	//test cases fail: -10,-1,0,9,15  => Total price not changed
 	@Test
 	public void testDecrementingTheNumberOfPhoneLines_returnsDecrementedPrice() {
 		//Arrange
-		List<String> _cellPhones;
+		List<String> _cellPhones = new ArrayList();
 		_cellPhones.add("iPhone 99");
 		_cellPhones.add("Motorola G99");
 		
@@ -26,7 +24,7 @@ public class PurchaseTest {
 		for(int item : testPhoneLines) {
 			object.set_phoneLines(item);
 			//to change
-			int totalPrice = object.DecrementingTheNumberOfPhoneLines();
+			int totalPrice = object.DecrementingTheNumberOfPhoneLines(1);
 			
 			if(item > 0 && item < 9) {
 				assertEquals(7000, totalPrice);
@@ -35,7 +33,7 @@ public class PurchaseTest {
 				assertEquals(7150, totalPrice);
 			}
 		}
-	}
+	} 
 	
 	@Test
 	public void testUnselectingACellPhone_returnDecreasedPrice() {

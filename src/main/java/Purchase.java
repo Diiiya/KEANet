@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Purchase {
 	
@@ -7,7 +8,7 @@ public class Purchase {
 	private int _phoneLines;
 	private List<String> _cellPhones;
 	private int _price;	
-	private List<Phone> _phoneCatalog;
+	private List<Phone> _phoneCatalog = new ArrayList();
 	
 	public Boolean get_internetConnection() {
 		return _internetConnection;
@@ -33,31 +34,18 @@ public class Purchase {
 	public void set_price(int _price) {
 		this._price = _price;
 	}	
-	private void set_phoneCatalog(List<Phone> _phoneCatalog) {		
-		Phone p1;
-		Phone p2;
-		Phone p3;
-		Phone p4;
-		Phone p5;
-		
-		p1 = new Phone("Motorola G99", 800);
-		p2 = new Phone("iPhone 99", 6000);
-		p3 = new Phone("Samsung Galaxy 99", 1000);
-		p4 = new Phone("Sony Xperia 99", 900);
-		p5 = new Phone("Huawei 99", 900);
+	public void set_phoneCatalog() {		
+		Phone p1 = new Phone("Motorola G99", 800);
+		Phone p2 = new Phone("iPhone 99", 6000);
+		Phone p3 = new Phone("Samsung Galaxy 99", 1000);
+		Phone p4 = new Phone("Sony Xperia 99", 900);
+		Phone p5 = new Phone("Huawei 99", 900);
 
-		_phoneCatalog.add(p1);
-		_phoneCatalog.add(p2);
-		_phoneCatalog.add(p3);
-		_phoneCatalog.add(p4);
-		_phoneCatalog.add(p5);
-		
-		this._phoneCatalog = _phoneCatalog;
+		_phoneCatalog.addAll(Arrays.asList(p1, p2, p3, p4, p5));
 	}	
-	private List<Phone> get_phoneCatalog(){
+	public List<Phone> get_phoneCatalog(){
 		return _phoneCatalog;
 	}
-	
 	
 	public Purchase(Boolean _internetConnection, int _phoneLines, List<String> _cellPhones, int _price) {
 		super();
@@ -65,19 +53,39 @@ public class Purchase {
 		this._phoneLines = _phoneLines;
 		this._cellPhones = _cellPhones;
 		this._price = _price;
+		set_phoneCatalog();
 	}
 	
 
 	public int InExcludeInternedConnection(boolean _internetConnection) {
-		return _price + 200;
+		if (_internetConnection == true) {
+			_price = _price + 200;
+			return _price;
+		}
+		_price = _price - 200;
+		return _price;
 	}
 	
 	public int AddPhoneLine() {
-		return _price + 150;
+		if (_phoneLines <= 7) { 
+			_phoneLines = _phoneLines + 1;
+			_price = _price + 150;
+			return _price;
+		}
+		throw new IndexOutOfBoundsException("The number of phone lines cannot be greater than 8");
 	}
 	
-	public int SelectCellPhone(String phoneModel) {
-		return _price;
+	public int SelectCellPhone(String _modelName) {
+		if (_cellPhones.size() <= 7) { 
+	    	for(Phone phone : get_phoneCatalog()) {
+	    		if(phone.get_name() == _modelName) {
+	    			_cellPhones.add(phone.get_name());
+	    			_price = _price + phone.get_price();	
+	    			return _price;
+	    		}
+			}
+		}
+		throw new IndexOutOfBoundsException("The number of phone lines cannot be greater than 8");
 	}
 
 	
