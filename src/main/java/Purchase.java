@@ -108,11 +108,12 @@ public class Purchase {
 	}
 	
 	public String Buying() {
+		String myAlert = "";
 		if(get_internetConnection() == false && get_phoneLines() == 0 &&  get_cellPhones().size() < 1 && get_price() == 0) {
-			return "Nothing Selected";
+			myAlert = "Nothing Selected";
 		}
-		else {
-			String myAlert = "You chose: ";
+		if(get_internetConnection() == true || get_phoneLines() != 0 ||  get_cellPhones().size() > 0 || get_price() != 0) {
+			myAlert = "You chose: ";
 			
 			if(get_internetConnection() == true) {
 				myAlert += "Internet Connection, ";
@@ -127,8 +128,8 @@ public class Purchase {
 				}
 			}
 			myAlert += "Total Price: " + get_price();
-			return myAlert;
 		}
+		return myAlert;
 	}
 
 }
