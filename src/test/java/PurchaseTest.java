@@ -70,6 +70,13 @@ public class PurchaseTest {
 		assertEquals(1150, notChangedTotalPrice); //checks if price did not change (with empty object)
 		assertEquals(2, cellPhones.size()); //checks if it did not remove any objects from the list (with empty object)
 		
+		//Act	
+		int notChangedTotalPriceWrongName = purchaseObject.UnselectingACellPhone("AAA");
+				
+		//Assert
+		assertEquals(1150, notChangedTotalPriceWrongName); //checks if price did not change (with wrong object)
+		assertEquals(2, cellPhones.size()); //checks if it did not remove any objects from the list (with wrong object)
+		
 		//Act
 		int totalPriceAfterDeletingOnlyOneMotorola = purchaseObject.UnselectingACellPhone("Motorola G99"); //1150 - 800
 				
