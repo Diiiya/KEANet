@@ -72,7 +72,7 @@ public class Purchase {
 	
 
 	public int AddPhoneLine() {
-		if (_phoneLines <= 7) { 
+		if (_phoneLines >= 0 && _phoneLines<= 7) { 
 			_phoneLines = _phoneLines + 1;
 			_price = _price + 150;
 			return _price;
@@ -90,7 +90,7 @@ public class Purchase {
 	}
 	
 	public int SelectCellPhone(String modelName) {
-		if (_cellPhones.size() <= 7) { 
+		if (_cellPhones.size() >= 0 && _cellPhones.size() <= 7) { 
 	    	for(Phone phone : get_phoneCatalog()) {
 	    		if(phone.get_name() == modelName) {
 	    			_cellPhones.add(phone.get_name());
