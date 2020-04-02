@@ -22,3 +22,14 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: Coverage check
+      uses: devmasx/coverage-check-action@v1.1.0
+      with:
+        # lcov | simplecov
+        type: lcov
+        # Github token for create checks
+        token: World
+        # Minimum coverage
+        min_coverage: 80 # optional, default is 80
+        # Json with coverage result
+        result_path: json
