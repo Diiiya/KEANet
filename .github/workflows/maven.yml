@@ -32,4 +32,4 @@ jobs:
         # Minimum coverage
         min_coverage: 80 # optional, default is 80
         # Json with coverage result
-        result_path: coverage.txt
+        result_path: coverage.json
